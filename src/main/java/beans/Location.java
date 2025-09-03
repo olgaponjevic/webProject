@@ -1,5 +1,6 @@
 package beans;
 
+import java.util.Objects;
 
 public class Location {
 	private int id;
@@ -54,4 +55,24 @@ public class Location {
 	public void setAdress(String adress) {
 		this.adress = adress;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(adress, id, latitude, longitude);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Location other = (Location) obj;
+		return Objects.equals(adress, other.adress) && id == other.id
+				&& Double.doubleToLongBits(latitude) == Double.doubleToLongBits(other.latitude)
+				&& Double.doubleToLongBits(longitude) == Double.doubleToLongBits(other.longitude);
+	}
+	
 }

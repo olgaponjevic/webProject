@@ -3,13 +3,21 @@ package dao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
+import beans.Category;
+import beans.Location;
+import beans.Offer;
 import beans.Product;
+import beans.User;
 import dto.ProductPriceDTO;
+import enums.Role;
+import enums.SaleStatus;
+import enums.SaleType;
 
 /***
  * Klasa namenjena da ucita proizvode iz fajla i pruzi operacije nad njima (poput pretrage).
@@ -19,7 +27,7 @@ import dto.ProductPriceDTO;
  *
  */
 public class ProductDAO {
-	
+	private ArrayList<Product> productList;
 	private HashMap<String, Product> products = new HashMap<String, Product>();
 	
 	public ProductDAO() {
@@ -32,6 +40,31 @@ public class ProductDAO {
 	public ProductDAO(String contextPath) {
 		loadProducts(contextPath);
 	}
+	private String generateId() {
+	    if (productList.isEmpty()) {
+	        return "1";
+	    }
+	    int maxId = 0;
+	    for (Product product : productList) {
+	        int currentId = Integer.parseInt(product.getId()); // konverzija iz String u int
+	        if (currentId > maxId) {
+	            maxId = currentId;
+	        }
+	    }
+	    return String.valueOf(maxId + 1);
+	}
+	
+	
+	/*public Product create(Product product) {
+		if(productList == null) {
+			productList = new ArrayList<Product>();
+		}
+		product.setId(generateId());
+		productList.add(product);
+		save();
+		return product;
+	}*/
+	
 
 	/***
 	 * Vraca sve proizvode.
@@ -100,7 +133,7 @@ public class ProductDAO {
 			File file = new File(contextPath + "/products.txt");
 			System.out.println(file.getCanonicalPath());
 			in = new BufferedReader(new FileReader(file));
-			String line, id = "", name = "", price = "";
+			String line;
 			StringTokenizer st;
 			while ((line = in.readLine()) != null) {
 				line = line.trim();
@@ -108,12 +141,37 @@ public class ProductDAO {
 					continue;
 				st = new StringTokenizer(line, ";");
 				while (st.hasMoreTokens()) {
-					id = st.nextToken().trim();
-					name = st.nextToken().trim();
-					price = st.nextToken().trim();
+					String id = st.nextToken().trim();
+					String name = st.nextToken().trim();
+					String description = st.nextToken().trim();
+					String photo = st.nextToken().trim();
+					Integer categoryId = Integer.valueOf(st.nextToken().trim());
+					Double price = Double.valueOf(st.nextToken().trim());
+					SaleType saleType = SaleType.valueOf(st.nextToken().trim());
+					String published = st.nextToken().trim();
+			
+					String[] offerIds;
+					ArrayList<Integer> offerIdsInt = new ArrayList<Integer>();
+					String offerString = st.nextToken().trim();
+					if(!offerString.equals("-")) {
+						offerIds = offerString.split(",");
+						for(String offerId:offerIds) {
+							Integer oId = Integer.valueOf(offerId);
+							offerIdsInt.add(oId);
+						}
+					} 
+					Integer salesmanId = Integer.valueOf(st.nextToken().trim());
+					boolean customerReview = Boolean.parseBoolean(st.nextToken().trim());
+					boolean salesmanReview = Boolean.parseBoolean(st.nextToken().trim());
+					SaleStatus status = SaleStatus.valueOf(st.nextToken().trim());
+					Integer locationId = Integer.valueOf(st.nextToken().trim());
+
+					
+				
+				products.put(id, new Product(id, name, description, photo, categoryId, null,
+						price, saleType, published, new ArrayList<Integer> (), new ArrayList<Offer>(), salesmanId,
+						null, customerReview, salesmanReview, status, locationId, null));
 				}
-				products.put(id, new Product(id, name, Double
-						.parseDouble(price)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
