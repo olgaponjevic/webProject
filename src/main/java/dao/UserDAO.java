@@ -3,11 +3,14 @@ package dao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import beans.Product;
+import beans.Review;
 import beans.User;
 import enums.Role;
 /***
@@ -85,9 +88,46 @@ public class UserDAO {
 					String description = st.nextToken().trim();
 					Role role = Role.valueOf(st.nextToken().trim());
 					boolean blocked = Boolean.parseBoolean(st.nextToken().trim());
+					
+					String[] productsForSaleIds;
+					ArrayList<Integer> productsForSaleIdsInt = new ArrayList<Integer>();
+					String productsString = st.nextToken().trim();
+					if(!productsString.equals("-")) {
+						productsForSaleIds = productsString.split(",");
+						for(String productsForSaleId:productsForSaleIds) {
+							Integer pId = Integer.valueOf(productsForSaleId);
+							productsForSaleIdsInt.add(pId);
+						}
+					} 
+					
+					String[] purchasedProductsIds;
+					ArrayList<Integer> purchasedProductsIdsInt = new ArrayList<Integer>();
+					String purchasedString = st.nextToken().trim();
+					if(!purchasedString.equals("-")) {
+						purchasedProductsIds = purchasedString.split(",");
+						for(String purchasedProductsId:purchasedProductsIds) {
+							Integer prId = Integer.valueOf(purchasedProductsId);
+							purchasedProductsIdsInt.add(prId);
+						}
+					} 
+					
+					String[] reviewIds;
+					ArrayList<Integer> reviewIdsInt = new ArrayList<Integer>();
+					String reviewString = st.nextToken().trim();
+					if(!reviewString.equals("-")) {
+						reviewIds = reviewString.split(",");
+						for(String reviewId:reviewIds) {
+							Integer rId = Integer.valueOf(reviewId);
+							reviewIdsInt.add(rId);
+						}
+					} 
+					Double rate = Double.valueOf(st.nextToken().trim());
+
 
 					users.put(username, new User(id, firstName, lastName, username, email, phone, password,
-							birthday, photo, description, role, blocked));
+							birthday, photo, description, role, blocked, productsForSaleIdsInt, new ArrayList<Product>(),
+							purchasedProductsIdsInt,  new ArrayList<Product> (), reviewIdsInt,
+							new ArrayList<Review>(), rate));
 				}
 				
 			}
