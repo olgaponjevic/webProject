@@ -2,6 +2,8 @@ package beans;
 
 import java.util.Objects;
 
+import enums.Role;
+
 public class User{
 	private int id;
 	private String firstName;
@@ -13,14 +15,14 @@ public class User{
 	private String birthday;
 	private String photo;
 	private String description;
-	private String role;
+	private Role role;
 	private boolean blocked;
 	
 	public User() {
 	}
 
 	public User(int id, String firstName, String lastName, String username, String email, String phone, String password,
-			String birthday, String photo, String description, String role, boolean blocked) {
+			String birthday, String photo, String description, Role role, boolean blocked) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -116,11 +118,11 @@ public class User{
 		this.description = description;
 	}
 
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 

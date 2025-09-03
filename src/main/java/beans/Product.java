@@ -1,19 +1,29 @@
 package beans;
 import beans.Location;
+import beans.Offer;
+import beans.User;
+import enums.SaleStatus;
+import enums.SaleType;
+
+import java.util.ArrayList;
+
+import beans.Category;
 
 public class Product {
 	private String id;
 	private String name;
+	private String description;
 	private String photo;
-	private String category;
+	private Category category;
 	private double price;
-	private String saleType;
+	private SaleType saleType;
 	private String published;
-	private String offer;
-	private String salesman;
+	private ArrayList<Offer> offer;
+	private Integer salesmanId;
+	private User salesman;
 	private boolean customerReview;
 	private boolean salesmanReview;
-	private String status;
+	private SaleStatus status;
 	private Location location;
 	
 	

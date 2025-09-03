@@ -9,12 +9,13 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import beans.User;
+import enums.Role;
 /***
  * <p>Klasa namenjena da ucita korisnike iz fajla i pruza operacije nad njima (poput pretrage).
  * Korisnici se nalaze u fajlu WebContent/users.txt u obliku: <br>
  * firstName;lastName;email;username;password</p>
  * <p><b>NAPOMENA:</b> Lozinke se u praksi <b>nikada</b> ne snimaju u istom tekstualnom obliku.</p>
- * @author Lazar
+ * 
  *
  */
 public class UserDAO {
@@ -82,11 +83,11 @@ public class UserDAO {
 					String birthday = st.nextToken().trim();
 					String photo = st.nextToken().trim();
 					String description = st.nextToken().trim();
-					String role = st.nextToken().trim();
+					Role role = Role.valueOf(st.nextToken().trim());
 					boolean blocked = Boolean.parseBoolean(st.nextToken().trim());
 
 					users.put(username, new User(id, firstName, lastName, username, email, phone, password,
-							 birthday, photo, description, role, blocked));
+							birthday, photo, description, role, blocked));
 				}
 				
 			}
