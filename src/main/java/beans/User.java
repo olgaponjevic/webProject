@@ -1,5 +1,6 @@
 package beans;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 import beans.Product;
@@ -14,29 +15,24 @@ public class User{
 	private String email;
 	private String phone;
 	private String password;
-	private String birthday;
+	private LocalDate birthday;
 	private String photo;
 	private String description;
 	private Role role;
 	private boolean blocked;
 	private ArrayList<Integer> productsForSaleIds;
-	private ArrayList<Product> productsForSale;
 	private ArrayList<Integer> purchasedProductsIds;
-	private ArrayList<Product> purchasedProducts;
 	private ArrayList<Integer> reviewIds;
-	private ArrayList<Review> reviews;
 	private double rate;
+	private boolean deleted;
 	
 	public User() {
 	}
 
-	
-
 	public User(int id, String firstName, String lastName, String username, String email, String phone, String password,
-			String birthday, String photo, String description, Role role, boolean blocked,
-			ArrayList<Integer> productsForSaleIds, ArrayList<Product> productsForSale,
-			ArrayList<Integer> purchasedProductsIds, ArrayList<Product> purchasedProducts, ArrayList<Integer> reviewIds,
-			ArrayList<Review> reviews, double rate) {
+			LocalDate birthday, String photo, String description, Role role, boolean blocked,
+			ArrayList<Integer> productsForSaleIds, ArrayList<Integer> purchasedProductsIds,
+			ArrayList<Integer> reviewIds, double rate, boolean deleted) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -51,15 +47,11 @@ public class User{
 		this.role = role;
 		this.blocked = blocked;
 		this.productsForSaleIds = productsForSaleIds;
-		this.productsForSale = productsForSale;
 		this.purchasedProductsIds = purchasedProductsIds;
-		this.purchasedProducts = purchasedProducts;
 		this.reviewIds = reviewIds;
-		this.reviews = reviews;
 		this.rate = rate;
+		this.deleted = deleted;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -117,11 +109,11 @@ public class User{
 		this.password = password;
 	}
 
-	public String getBirthday() {
+	public LocalDate getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(String birthday) {
+	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
 	}
 
@@ -161,94 +153,47 @@ public class User{
 		return productsForSaleIds;
 	}
 
-
-
 	public void setProductsForSaleIds(ArrayList<Integer> productsForSaleIds) {
 		this.productsForSaleIds = productsForSaleIds;
 	}
-
-
-
-	public ArrayList<Product> getProductsForSale() {
-		return productsForSale;
-	}
-
-
-
-	public void setProductsForSale(ArrayList<Product> productsForSale) {
-		this.productsForSale = productsForSale;
-	}
-
-
 
 	public ArrayList<Integer> getPurchasedProductsIds() {
 		return purchasedProductsIds;
 	}
 
-
-
 	public void setPurchasedProductsIds(ArrayList<Integer> purchasedProductsIds) {
 		this.purchasedProductsIds = purchasedProductsIds;
 	}
-
-
-
-	public ArrayList<Product> getPurchasedProducts() {
-		return purchasedProducts;
-	}
-
-
-
-	public void setPurchasedProducts(ArrayList<Product> purchasedProducts) {
-		this.purchasedProducts = purchasedProducts;
-	}
-
-
 
 	public ArrayList<Integer> getReviewIds() {
 		return reviewIds;
 	}
 
-
-
 	public void setReviewIds(ArrayList<Integer> reviewIds) {
 		this.reviewIds = reviewIds;
 	}
-
-
-
-	public ArrayList<Review> getReviews() {
-		return reviews;
-	}
-
-
-
-	public void setReviews(ArrayList<Review> reviews) {
-		this.reviews = reviews;
-	}
-
-
 
 	public double getRate() {
 		return rate;
 	}
 
-
-
 	public void setRate(double rate) {
 		this.rate = rate;
 	}
 
+	public boolean isDeleted() {
+		return deleted;
+	}
 
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(birthday, blocked, description, email, firstName, id, lastName, password, phone, photo,
-				productsForSale, productsForSaleIds, purchasedProducts, purchasedProductsIds, rate, reviewIds, reviews,
-				role, username);
+		return Objects.hash(birthday, blocked, deleted, description, email, firstName, id, lastName, password, phone,
+				photo, productsForSaleIds, purchasedProductsIds, rate, reviewIds, role, username);
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -259,33 +204,27 @@ public class User{
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(birthday, other.birthday) && blocked == other.blocked
+		return Objects.equals(birthday, other.birthday) && blocked == other.blocked && deleted == other.deleted
 				&& Objects.equals(description, other.description) && Objects.equals(email, other.email)
 				&& Objects.equals(firstName, other.firstName) && id == other.id
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
 				&& Objects.equals(phone, other.phone) && Objects.equals(photo, other.photo)
-				&& Objects.equals(productsForSale, other.productsForSale)
 				&& Objects.equals(productsForSaleIds, other.productsForSaleIds)
-				&& Objects.equals(purchasedProducts, other.purchasedProducts)
 				&& Objects.equals(purchasedProductsIds, other.purchasedProductsIds)
 				&& Double.doubleToLongBits(rate) == Double.doubleToLongBits(other.rate)
-				&& Objects.equals(reviewIds, other.reviewIds) && Objects.equals(reviews, other.reviews)
-				&& role == other.role && Objects.equals(username, other.username);
+				&& Objects.equals(reviewIds, other.reviewIds) && role == other.role
+				&& Objects.equals(username, other.username);
 	}
-
-
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
 				+ ", email=" + email + ", phone=" + phone + ", password=" + password + ", birthday=" + birthday
 				+ ", photo=" + photo + ", description=" + description + ", role=" + role + ", blocked=" + blocked
-				+ ", productsForSaleIds=" + productsForSaleIds + ", productsForSale=" + productsForSale
-				+ ", purchasedProductsIds=" + purchasedProductsIds + ", purchasedProducts=" + purchasedProducts
-				+ ", reviewIds=" + reviewIds + ", reviews=" + reviews + ", rate=" + rate + "]";
+				+ ", productsForSaleIds=" + productsForSaleIds + ", purchasedProductsIds=" + purchasedProductsIds
+				+ ", reviewIds=" + reviewIds + ", rate=" + rate + ", deleted=" + deleted + "]";
 	}
+	
 
-
-
-
+	
 }

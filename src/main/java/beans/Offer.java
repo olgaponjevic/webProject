@@ -7,18 +7,18 @@ public class Offer {
 	private int id;
 	private double price;
 	private Integer customerId;
-	private User customer;
+	private boolean deleted;
 	
 	public Offer() {
 		super();
 	}
 
-	public Offer(int id, double price, Integer customerId, User customer) {
+	public Offer(int id, double price, Integer customerId, boolean deleted) {
 		super();
 		this.id = id;
 		this.price = price;
 		this.customerId = customerId;
-		this.customer = customer;
+		this.deleted = deleted;
 	}
 
 	public int getId() {
@@ -45,17 +45,17 @@ public class Offer {
 		this.customerId = customerId;
 	}
 
-	public User getCustomer() {
-		return customer;
+	public boolean isDeleted() {
+		return deleted;
 	}
 
-	public void setCustomer(User customer) {
-		this.customer = customer;
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(customer, customerId, id, price);
+		return Objects.hash(customerId, deleted, id, price);
 	}
 
 	@Override
@@ -67,14 +67,17 @@ public class Offer {
 		if (getClass() != obj.getClass())
 			return false;
 		Offer other = (Offer) obj;
-		return Objects.equals(customer, other.customer) && Objects.equals(customerId, other.customerId)
-				&& id == other.id && Double.doubleToLongBits(price) == Double.doubleToLongBits(other.price);
+		return Objects.equals(customerId, other.customerId) && deleted == other.deleted && id == other.id
+				&& Double.doubleToLongBits(price) == Double.doubleToLongBits(other.price);
 	}
 
 	@Override
 	public String toString() {
-		return "Offer [id=" + id + ", price=" + price + ", customerId=" + customerId + ", customer=" + customer + "]";
+		return "Offer [id=" + id + ", price=" + price + ", customerId=" + customerId + ", deleted=" + deleted + "]";
 	}
+
+	
+	
 	
 	
 

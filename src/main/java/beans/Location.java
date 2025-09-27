@@ -6,22 +6,21 @@ public class Location {
 	private int id;
 	private double latitude;
 	private double longitude;
-	private String adress;
+	private String street;
+	private String city;
+	private String postalCode;
 
 	public Location() {
 	}
-	
-	public String stringForFile() {
-		return id + "|" + latitude + "|" + longitude + "|" + adress;
-				
-	}
 
-	public Location(int id, double longitude, double latitude, String adress) {
+	public Location(int id, double latitude, double longitude, String street, String city, String postalCode) {
 		super();
 		this.id = id;
-		this.longitude = longitude;
 		this.latitude = latitude;
-		this.adress = adress;
+		this.longitude = longitude;
+		this.street = street;
+		this.city = city;
+		this.postalCode = postalCode;
 	}
 
 	public int getId() {
@@ -32,14 +31,6 @@ public class Location {
 		this.id = id;
 	}
 
-	public double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
-
 	public double getLatitude() {
 		return latitude;
 	}
@@ -48,17 +39,41 @@ public class Location {
 		this.latitude = latitude;
 	}
 
-	public String getAdress() {
-		return adress;
+	public double getLongitude() {
+		return longitude;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(adress, id, latitude, longitude);
+		return Objects.hash(city, id, latitude, longitude, postalCode, street);
 	}
 
 	@Override
@@ -70,9 +85,18 @@ public class Location {
 		if (getClass() != obj.getClass())
 			return false;
 		Location other = (Location) obj;
-		return Objects.equals(adress, other.adress) && id == other.id
+		return Objects.equals(city, other.city) && id == other.id
 				&& Double.doubleToLongBits(latitude) == Double.doubleToLongBits(other.latitude)
-				&& Double.doubleToLongBits(longitude) == Double.doubleToLongBits(other.longitude);
+				&& Double.doubleToLongBits(longitude) == Double.doubleToLongBits(other.longitude)
+				&& Objects.equals(postalCode, other.postalCode) && Objects.equals(street, other.street);
 	}
+
+	@Override
+	public String toString() {
+		return "Location [id=" + id + ", latitude=" + latitude + ", longitude=" + longitude + ", street=" + street
+				+ ", city=" + city + ", postalCode=" + postalCode + "]";
+	}
+	
+	
 	
 }

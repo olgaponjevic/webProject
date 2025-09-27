@@ -5,15 +5,17 @@ import java.util.Objects;
 public class Category {
 	private int id;
 	private String name;
+	private boolean deleted;
 	
 	public Category() {
 		super();
 	}
 
-	public Category(int id, String name) {
+	public Category(int id, String name, boolean deleted) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.deleted = deleted;
 	}
 
 	public int getId() {
@@ -32,9 +34,17 @@ public class Category {
 		this.name = name;
 	}
 
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name);
+		return Objects.hash(deleted, id, name);
 	}
 
 	@Override
@@ -46,13 +56,15 @@ public class Category {
 		if (getClass() != obj.getClass())
 			return false;
 		Category other = (Category) obj;
-		return id == other.id && Objects.equals(name, other.name);
+		return deleted == other.deleted && id == other.id && Objects.equals(name, other.name);
 	}
 
 	@Override
 	public String toString() {
-		return "Category [id=" + id + ", name=" + name + "]";
+		return "Category [id=" + id + ", name=" + name + ", deleted=" + deleted + "]";
 	}
+
+	
 	
 	
 

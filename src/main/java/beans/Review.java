@@ -1,28 +1,29 @@
 package beans;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import beans.User;
 
 public class Review {
 	private int id;
-	private Integer rate;
+	private int rate;
 	private String comment;
-	private String reviewDate;
-	private Integer userId;
-	private User user;
+	private LocalDate reviewDate;
+	private int userId;
+	private boolean deleted;
 	
 	public Review() {
 		super();
 	}
 
-	public Review(int id, Integer rate, String comment, String reviewDate, Integer userId, User user) {
+	public Review(int id, int rate, String comment, LocalDate reviewDate, int userId, boolean deleted) {
 		super();
 		this.id = id;
 		this.rate = rate;
 		this.comment = comment;
 		this.reviewDate = reviewDate;
 		this.userId = userId;
-		this.user = user;
+		this.deleted = deleted;
 	}
 
 	public int getId() {
@@ -33,11 +34,11 @@ public class Review {
 		this.id = id;
 	}
 
-	public Integer getRate() {
+	public int getRate() {
 		return rate;
 	}
 
-	public void setRate(Integer rate) {
+	public void setRate(int rate) {
 		this.rate = rate;
 	}
 
@@ -49,33 +50,33 @@ public class Review {
 		this.comment = comment;
 	}
 
-	public String getReviewDate() {
+	public LocalDate getReviewDate() {
 		return reviewDate;
 	}
 
-	public void setReviewDate(String reviewDate) {
+	public void setReviewDate(LocalDate reviewDate) {
 		this.reviewDate = reviewDate;
 	}
 
-	public Integer getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
-	public User getUser() {
-		return user;
+	public boolean isDeleted() {
+		return deleted;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(comment, id, rate, reviewDate, user, userId);
+		return Objects.hash(comment, deleted, id, rate, reviewDate, userId);
 	}
 
 	@Override
@@ -87,16 +88,15 @@ public class Review {
 		if (getClass() != obj.getClass())
 			return false;
 		Review other = (Review) obj;
-		return Objects.equals(comment, other.comment) && id == other.id && Objects.equals(rate, other.rate)
-				&& Objects.equals(reviewDate, other.reviewDate) && Objects.equals(user, other.user)
-				&& Objects.equals(userId, other.userId);
+		return Objects.equals(comment, other.comment) && deleted == other.deleted && id == other.id
+				&& rate == other.rate && Objects.equals(reviewDate, other.reviewDate) && userId == other.userId;
 	}
 
 	@Override
 	public String toString() {
 		return "Review [id=" + id + ", rate=" + rate + ", comment=" + comment + ", reviewDate=" + reviewDate
-				+ ", userId=" + userId + ", user=" + user + "]";
+				+ ", userId=" + userId + ", deleted=" + deleted + "]";
 	}
-	
+
 
 }

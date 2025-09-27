@@ -1,4 +1,5 @@
 package beans;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import beans.User;
@@ -7,28 +8,26 @@ import enums.ReportStatus;
 public class Report {
 	private int id;
 	private String reason;
-	private String reportDate;
-	private Integer complainantId;
-	private User complainant;
-	private Integer defendantId;
-	private User defendant;
+	private LocalDate reportDate;
+	private int complainantId;
+	private int defendantId;
 	private ReportStatus status;
+	private boolean deleted;
 	
 	public Report() {
 		super();
 	}
 
-	public Report(int id, String reason, String reportDate, Integer complainantId, User complainant,
-			Integer defendantId, User defendant, ReportStatus status) {
+	public Report(int id, String reason, LocalDate reportDate, int complainantId, int defendantId, ReportStatus status,
+			boolean deleted) {
 		super();
 		this.id = id;
 		this.reason = reason;
 		this.reportDate = reportDate;
 		this.complainantId = complainantId;
-		this.complainant = complainant;
 		this.defendantId = defendantId;
-		this.defendant = defendant;
 		this.status = status;
+		this.deleted = deleted;
 	}
 
 	public int getId() {
@@ -47,44 +46,28 @@ public class Report {
 		this.reason = reason;
 	}
 
-	public String getReportDate() {
+	public LocalDate getReportDate() {
 		return reportDate;
 	}
 
-	public void setReportDate(String reportDate) {
+	public void setReportDate(LocalDate reportDate) {
 		this.reportDate = reportDate;
 	}
 
-	public Integer getComplainantId() {
+	public int getComplainantId() {
 		return complainantId;
 	}
 
-	public void setComplainantId(Integer complainantId) {
+	public void setComplainantId(int complainantId) {
 		this.complainantId = complainantId;
 	}
 
-	public User getComplainant() {
-		return complainant;
-	}
-
-	public void setComplainant(User complainant) {
-		this.complainant = complainant;
-	}
-
-	public Integer getDefendantId() {
+	public int getDefendantId() {
 		return defendantId;
 	}
 
-	public void setDefendantId(Integer defendantId) {
+	public void setDefendantId(int defendantId) {
 		this.defendantId = defendantId;
-	}
-
-	public User getDefendant() {
-		return defendant;
-	}
-
-	public void setDefendant(User defendant) {
-		this.defendant = defendant;
 	}
 
 	public ReportStatus getStatus() {
@@ -95,9 +78,17 @@ public class Report {
 		this.status = status;
 	}
 
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(complainant, complainantId, defendant, defendantId, id, reason, reportDate, status);
+		return Objects.hash(complainantId, defendantId, deleted, id, reason, reportDate, status);
 	}
 
 	@Override
@@ -109,8 +100,7 @@ public class Report {
 		if (getClass() != obj.getClass())
 			return false;
 		Report other = (Report) obj;
-		return Objects.equals(complainant, other.complainant) && Objects.equals(complainantId, other.complainantId)
-				&& Objects.equals(defendant, other.defendant) && Objects.equals(defendantId, other.defendantId)
+		return complainantId == other.complainantId && defendantId == other.defendantId && deleted == other.deleted
 				&& id == other.id && Objects.equals(reason, other.reason)
 				&& Objects.equals(reportDate, other.reportDate) && status == other.status;
 	}
@@ -118,10 +108,8 @@ public class Report {
 	@Override
 	public String toString() {
 		return "Report [id=" + id + ", reason=" + reason + ", reportDate=" + reportDate + ", complainantId="
-				+ complainantId + ", complainant=" + complainant + ", defendantId=" + defendantId + ", defendant="
-				+ defendant + ", status=" + status + "]";
+				+ complainantId + ", defendantId=" + defendantId + ", status=" + status + ", deleted=" + deleted + "]";
 	}
-	
-	
+
 
 }
